@@ -6,6 +6,7 @@
 package GUI;
 
 import DATA.AbrirImagen;
+import DATA.OperacionesImagenes;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -15,6 +16,7 @@ import javax.swing.ImageIcon;
  */
 public class JFrameImagenPaleta extends javax.swing.JFrame {
 
+    private Image imagenOriginal;
     /**
      * Creates new form JFrameImagenPaleta
      */
@@ -35,6 +37,7 @@ public class JFrameImagenPaleta extends javax.swing.JFrame {
         jPanelImagenO = new javax.swing.JPanel();
         jLabelImagenOriginal = new javax.swing.JLabel();
         jPanelIGrises = new javax.swing.JPanel();
+        jLabelImagenGrises = new javax.swing.JLabel();
         jPanelHistograma = new javax.swing.JPanel();
         jPanelRojos = new javax.swing.JPanel();
         jPanelVerdes = new javax.swing.JPanel();
@@ -69,11 +72,15 @@ public class JFrameImagenPaleta extends javax.swing.JFrame {
         jPanelIGrises.setLayout(jPanelIGrisesLayout);
         jPanelIGrisesLayout.setHorizontalGroup(
             jPanelIGrisesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1462, Short.MAX_VALUE)
+            .addGroup(jPanelIGrisesLayout.createSequentialGroup()
+                .addComponent(jLabelImagenGrises)
+                .addGap(0, 1462, Short.MAX_VALUE))
         );
         jPanelIGrisesLayout.setVerticalGroup(
             jPanelIGrisesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 746, Short.MAX_VALUE)
+            .addGroup(jPanelIGrisesLayout.createSequentialGroup()
+                .addComponent(jLabelImagenGrises)
+                .addGap(0, 746, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Imagen Grises", jPanelIGrises);
@@ -151,6 +158,11 @@ public class JFrameImagenPaleta extends javax.swing.JFrame {
         });
 
         jButtonGrisesH.setText("Grises e Histograma");
+        jButtonGrisesH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGrisesHActionPerformed(evt);
+            }
+        });
 
         jButtonRGB.setText("Rojos/Verdes/Azules");
 
@@ -191,9 +203,16 @@ public class JFrameImagenPaleta extends javax.swing.JFrame {
     private void jButtonAbrirImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirImagenActionPerformed
         // Abrir la imagen original 
         // y mandarla como icono al label
-        Image imagenOriginal = AbrirImagen.abrir();
+        imagenOriginal = AbrirImagen.abrir();
         this.jLabelImagenOriginal.setIcon(new ImageIcon(imagenOriginal));
     }//GEN-LAST:event_jButtonAbrirImagenActionPerformed
+
+    private void jButtonGrisesHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGrisesHActionPerformed
+        OperacionesImagenes oi = new OperacionesImagenes(imagenOriginal);
+        Image igrises = oi.obtenerImagenGrises();
+        // setamos al laber correspondiente
+        this.jLabelImagenGrises.setIcon(new ImageIcon(igrises));
+    }//GEN-LAST:event_jButtonGrisesHActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,6 +255,7 @@ public class JFrameImagenPaleta extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGrisesH;
     private javax.swing.JButton jButtonRGB;
     private javax.swing.JButton jButtonWeb;
+    private javax.swing.JLabel jLabelImagenGrises;
     private javax.swing.JLabel jLabelImagenOriginal;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelHistograma;
