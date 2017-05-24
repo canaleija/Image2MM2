@@ -6,6 +6,7 @@
 package GUI;
 
 import DATA.AbrirImagen;
+import DATA.Grafica;
 import DATA.OperacionesImagenes;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -38,10 +39,10 @@ public class JFrameImagenPaleta extends javax.swing.JFrame {
         jLabelImagenOriginal = new javax.swing.JLabel();
         jPanelIGrises = new javax.swing.JPanel();
         jLabelImagenGrises = new javax.swing.JLabel();
-        jPanelHistograma = new javax.swing.JPanel();
         jPanelRojos = new javax.swing.JPanel();
         jPanelVerdes = new javax.swing.JPanel();
         Azules = new javax.swing.JPanel();
+        jPanelHistograma = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jButtonAbrirImagen = new javax.swing.JButton();
         jButtonGrisesH = new javax.swing.JButton();
@@ -85,19 +86,6 @@ public class JFrameImagenPaleta extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Imagen Grises", jPanelIGrises);
 
-        javax.swing.GroupLayout jPanelHistogramaLayout = new javax.swing.GroupLayout(jPanelHistograma);
-        jPanelHistograma.setLayout(jPanelHistogramaLayout);
-        jPanelHistogramaLayout.setHorizontalGroup(
-            jPanelHistogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1462, Short.MAX_VALUE)
-        );
-        jPanelHistogramaLayout.setVerticalGroup(
-            jPanelHistogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 746, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Histograma", jPanelHistograma);
-
         javax.swing.GroupLayout jPanelRojosLayout = new javax.swing.GroupLayout(jPanelRojos);
         jPanelRojos.setLayout(jPanelRojosLayout);
         jPanelRojosLayout.setHorizontalGroup(
@@ -136,6 +124,19 @@ public class JFrameImagenPaleta extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Azules", Azules);
+
+        javax.swing.GroupLayout jPanelHistogramaLayout = new javax.swing.GroupLayout(jPanelHistograma);
+        jPanelHistograma.setLayout(jPanelHistogramaLayout);
+        jPanelHistogramaLayout.setHorizontalGroup(
+            jPanelHistogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1462, Short.MAX_VALUE)
+        );
+        jPanelHistogramaLayout.setVerticalGroup(
+            jPanelHistogramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 746, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Histograma", jPanelHistograma);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -210,6 +211,12 @@ public class JFrameImagenPaleta extends javax.swing.JFrame {
     private void jButtonGrisesHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGrisesHActionPerformed
         OperacionesImagenes oi = new OperacionesImagenes(imagenOriginal);
         Image igrises = oi.obtenerImagenGrises();
+        double [] frecuencias = oi.getFrecuencias();
+        // creamos la grafica con las frecuencias
+        Grafica grafica = new Grafica("Frecuencia de Grises");
+        grafica.crearSerie(frecuencias, "Grises");
+        // mostramos grafica
+        grafica.mostrarGrafica();
         // setamos al laber correspondiente
         this.jLabelImagenGrises.setIcon(new ImageIcon(igrises));
     }//GEN-LAST:event_jButtonGrisesHActionPerformed

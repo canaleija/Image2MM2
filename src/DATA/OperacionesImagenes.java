@@ -15,10 +15,14 @@ import java.awt.image.BufferedImage;
  * @author Roberto Cruz Leija
  */
 public class OperacionesImagenes {
+
+    
     private Image imagenOriginal;
+    private double[] frecuencias;
 
     public OperacionesImagenes(Image imagenOriginal) {
         this.imagenOriginal = imagenOriginal;
+        this.frecuencias = new double[256];
         
     }
     
@@ -33,6 +37,8 @@ public class OperacionesImagenes {
               int verde = colorPixel.getGreen();
               int azul = colorPixel.getBlue();
               int prom = (rojo+verde+azul)/3;
+              // agregamos la frecuencia
+              this.getFrecuencias()[prom]++;
               colorPixel = new Color(prom, prom, prom);
               bi.setRGB(n, m, colorPixel.getRGB());
             }
@@ -57,6 +63,11 @@ public class OperacionesImagenes {
         
         return bimage;
     }
-    
+    /**
+     * @return the frecuencias
+     */
+    public double[] getFrecuencias() {
+        return frecuencias;
+    }
     
 }
